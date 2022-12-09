@@ -28,12 +28,12 @@
             android:layout_marginTop="10dp"
             android:hint="User Email"
             android:textAlignment="center"
-            android:textSize="30dp" />
+            android:textSize="25dp" />
 
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView2"
+        android:id="@+id/profileRecyclerView"
         android:layout_width="409dp"
         android:layout_height="541dp"
         app:layout_constraintBottom_toBottomOf="parent"

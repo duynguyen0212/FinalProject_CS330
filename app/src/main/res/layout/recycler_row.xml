@@ -3,14 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/rec_name"
-        android:text="User name: "
-        android:layout_margin="10dp"
-        android:textSize="20dp"
-        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rec_name"
+            android:text="User name: "
+            android:layout_margin="10dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            />
+
+
     <ImageView
         android:layout_width="300dp"
         android:layout_height="300dp"
@@ -26,6 +29,14 @@
         android:layout_margin="10dp"
         android:id="@+id/rec_comment"
         />
+    <TextView
+        android:id="@+id/rec_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="date"
+        android:textColor="@color/black"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="-10dp"/>
     <View
         android:layout_width="wrap_content"
         android:layout_height="1dp"

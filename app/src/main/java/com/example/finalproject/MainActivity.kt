@@ -18,9 +18,9 @@ import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
-    private lateinit var database : FirebaseFirestore
+    private lateinit var database: FirebaseFirestore
     var post_list = ArrayList<Post>()
-    private lateinit var recyclerViewAdapter : MainActivityAdapter
+    private lateinit var recyclerViewAdapter: MainActivityAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -35,19 +35,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun get_information() {
-        database.collection("Post").orderBy("date", Query.Direction.DESCENDING).addSnapshotListener { snaphot, exception ->
+        database.collection("Post").orderBy(
+            "date", Query.Direction.DESCENDING
+        ).addSnapshotListener { snaphot, exception ->
             if (exception != null) {
-                Toast.makeText(this,exception.localizedMessage,Toast.LENGTH_LONG).show()
+                Toast.makeText(this, exception.localizedMessage, Toast.LENGTH_LONG).show()
             } else {
                 if (snaphot != null) {
-                    if(!snaphot.isEmpty) {
+                    if (!snaphot.isEmpty) {
                         val documents = snaphot.documents
                         post_list.clear()
                         for (document in documents) {
                             val email = document.get("email").toString()
                             val comment = document.get("comment").toString()
                             val image = document.get("imageUrl").toString()
-                            val download_post = Post(email, comment, image)
+                            val date = document.get("date").toString()
+                            val download_post = Post(email, comment, image, date)
                             post_list.add(download_post)
                         }
                     }
@@ -63,20 +66,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == R.id.logout){
+        if (item.itemId == R.id.logout) {
             mAuth.signOut()
             val intent = Intent(this@MainActivity, Login::class.java)
             finish()
             startActivity(intent)
 
         }
-        if(item.itemId == R.id.upload){
+        if (item.itemId == R.id.upload) {
             val intent = Intent(this, UploadPhoto::class.java)
             startActivity(intent)
 
         }
-        if(item.itemId == R.id.userProfile){
+        if (item.itemId == R.id.userProfile) {
             val intent = Intent(this, Profile::class.java)
+            intent.putExtra("name", "currentUser")
             startActivity(intent)
         }
         return super.onOptionsItemSelected(item)

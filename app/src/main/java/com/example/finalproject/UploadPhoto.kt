@@ -24,8 +24,11 @@ import android.widget.TextView
 import java.sql.Timestamp
 import java.time.Instant.now
 import java.time.LocalDate.now
+import java.time.LocalDateTime
 import java.time.LocalDateTime.now
 import java.time.LocalTime.now
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 import java.util.*
 
 class UploadPhoto : AppCompatActivity() {
@@ -55,12 +58,15 @@ class UploadPhoto : AppCompatActivity() {
                     val dowloadUrl = uri.toString()
                     val currentuser_email = auth.currentUser!!.email.toString()
                     val user_comment:String = findViewById<TextView>(R.id.comment).text.toString()
-                    val date = com.google.firebase.Timestamp.now()
+                    //val date = com.google.firebase.Timestamp.now()
+                    val current = LocalDateTime.now()
+                    val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
+                    val formatted = current.format(formatter)
                     val postHashMap = hashMapOf<String,Any>()
                     postHashMap.put("imageUrl", dowloadUrl)
                     postHashMap.put("email",currentuser_email)
                     postHashMap.put("comment",user_comment)
-                    postHashMap.put("date",date)
+                    postHashMap.put("date",formatted)
                     database.collection("Post").add(postHashMap).addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             finish()
